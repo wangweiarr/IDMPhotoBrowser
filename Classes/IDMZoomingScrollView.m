@@ -14,7 +14,8 @@
 @interface IDMPhotoBrowser ()
 - (UIImage *)imageForPhoto:(id<IDMPhoto>)photo;
 - (void)cancelControlHiding;
-- (void)hideControlsAfterDelay;
+- (void)hideControls;
+//- (void)hideControlsAfterDelay;
 - (void)toggleControls;
 @end
 
@@ -243,7 +244,8 @@
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-	[_photoBrowser hideControlsAfterDelay];
+	//[_photoBrowser hideControlsAfterDelay];
+    [_photoBrowser hideControls];
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
@@ -276,7 +278,8 @@
 	}
 	
 	// Delay controls
-	[_photoBrowser hideControlsAfterDelay];
+	//[_photoBrowser hideControlsAfterDelay];
+    [_photoBrowser hideControls];
 }
 
 // Image View

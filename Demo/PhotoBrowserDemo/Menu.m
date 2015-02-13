@@ -110,8 +110,7 @@
     // Create and setup browser
     IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos animatedFromView:sender]; // using initWithPhotos:animatedFromView: method to use the zoom-in animation
     browser.delegate = self;
-    browser.displayActionButton = NO;
-    browser.displayArrowButton = YES;
+    browser.displayActionButton = YES;
     browser.displayCounterLabel = YES;
     browser.usePopAnimation = YES;
     browser.scaleImage = buttonSender.currentImage;
@@ -239,9 +238,6 @@
             browser.useWhiteBackgroundColor = YES;
             browser.leftArrowImage          = [UIImage imageNamed:@"IDMPhotoBrowser_customArrowLeft.png"];
             browser.rightArrowImage         = [UIImage imageNamed:@"IDMPhotoBrowser_customArrowRight.png"];
-            browser.leftArrowSelectedImage  = [UIImage imageNamed:@"IDMPhotoBrowser_customArrowLeftSelected.png"];
-            browser.rightArrowSelectedImage = [UIImage imageNamed:@"IDMPhotoBrowser_customArrowRightSelected.png"];
-            browser.doneButtonImage         = [UIImage imageNamed:@"IDMPhotoBrowser_customDoneButton.png"];
             browser.view.tintColor          = [UIColor orangeColor];
             browser.progressTintColor       = [UIColor orangeColor];
             browser.trackTintColor          = [UIColor colorWithWhite:0.8 alpha:1];
@@ -259,22 +255,26 @@
 - (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)pageIndex
 {
     id <IDMPhoto> photo = [photoBrowser photoAtIndex:pageIndex];
-    NSLog(@"Did show photoBrowser with photo index: %d, photo caption: %@", pageIndex, photo.caption);
+    NSLog(@"Did show photoBrowser with photo index: %zd, photo caption: %@", pageIndex, photo.caption);
 }
 
 - (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didDismissAtPageIndex:(NSUInteger)pageIndex
 {
     id <IDMPhoto> photo = [photoBrowser photoAtIndex:pageIndex];
-    NSLog(@"Did dismiss photoBrowser with photo index: %d, photo caption: %@", pageIndex, photo.caption);
+    NSLog(@"Did dismiss photoBrowser with photo index: %zd, photo caption: %@", pageIndex, photo.caption);
 }
 
 - (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didDismissActionSheetWithButtonIndex:(NSUInteger)buttonIndex photoIndex:(NSUInteger)photoIndex
 {
     id <IDMPhoto> photo = [photoBrowser photoAtIndex:photoIndex];
-    NSLog(@"Did dismiss actionSheet with photo index: %d, photo caption: %@", photoIndex, photo.caption);
+    NSLog(@"Did dismiss actionSheet with photo index: %zd, photo caption: %@", photoIndex, photo.caption);
     
-    NSString *title = [NSString stringWithFormat:@"Option %d", buttonIndex+1];
+    NSString *title = [NSString stringWithFormat:@"Option %zd", buttonIndex+1];
     [UIAlertView showAlertViewWithTitle:title];
 }
 
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    NSLog(@"成功？%@", error);
+}
 @end
